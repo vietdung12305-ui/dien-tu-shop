@@ -10,17 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Bước 1: Lấy code từ repo
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Bước 2: Cài đặt .NET SDK
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
+    # Bước 3: Build và publish project ASP.NET Core
     - name: Publish .NET app
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish ./dien-tu-shop/dien-tu-shop.csproj -c Release -o ./publish
 
+    # Bước 4: Deploy lên Azure App Service
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
